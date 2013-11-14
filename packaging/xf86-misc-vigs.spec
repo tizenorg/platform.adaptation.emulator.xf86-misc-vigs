@@ -79,8 +79,7 @@ done
 /etc/rc.d/rc4.d/*
 /etc/X11/Xmodmap
 /etc/X11/Xresources
-%attr(755,root,root) etc/X11/xsetrc
-/etc/X11/xorg.conf.d/*.conf
+%attr(755,root,root) /etc/X11/xsetrc
 /etc/X11/Xorg.arch-options
 %dir /etc/X11/arch-preinit.d
 /etc/X11/arch-preinit.d/*
