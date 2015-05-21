@@ -1,5 +1,5 @@
 Name:    xf86-misc-vigs
-Summary:    X.Org X11 X server misc files for vigs
+Summary:    X.Org X11 X server configuration files for vigs
 Version:    0.1.0
 Release:    1
 ExclusiveArch:    %ix86
@@ -55,6 +55,13 @@ ln -s /etc/rc.d/init.d/xresources %{buildroot}/etc/rc.d/rc4.d/S80xresources
 
 cp -Rd conf-i386* %{buildroot}/etc/X11/
 
+mkdir -p %{buildroot}%{_libdir}/systemd/system/basic.target.wants
+install -m 0644 i386-common/xorg.service %{buildroot}%{_libdir}/systemd/system/xorg.service
+ln -s ../xorg.service %{buildroot}%{_libdir}/systemd/system/basic.target.wants/xorg.service
+mkdir -p %{buildroot}%{_libdir}/systemd/system/multi-user.target.wants
+install -m 0644 i386-common/xresources.service %{buildroot}%{_libdir}/systemd/system/xresources.service
+ln -s ../xresources.service %{buildroot}%{_libdir}/systemd/system/multi-user.target.wants/xresources.service
+
 %post
 mkdir -p /etc/X11/xorg.conf.d
 for i in /etc/X11/conf-i386-vigs/*; do
@@ -84,3 +91,7 @@ done
 %dir /etc/X11/arch-preinit.d
 /etc/X11/arch-preinit.d/*
 /etc/X11/conf-i386-vigs/*
+%{_libdir}/systemd/system/xorg.service
+%{_libdir}/systemd/system/basic.target.wants/xorg.service
+%{_libdir}/systemd/system/xresources.service
+%{_libdir}/systemd/system/multi-user.target.wants/xresources.service
